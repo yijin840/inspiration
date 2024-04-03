@@ -1,38 +1,42 @@
 package org.yijin.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.yijin.entity.User;
-import org.yijin.mapper.UserMapper;
-
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
+import org.yijin.entity.UserLog;
+import org.yijin.entity.UserRequest;
 
 /**
- * @author YiJin840
- * @program inspiration
- * @description user service
- * @since 2024-03-02 14:38
+ * @author : wys
+ * @email : yijin840@gmail.com
+ * @created : 2024/3/22 17:03
  **/
-@Service
-@RequiredArgsConstructor
+@Component
+@Slf4j
 public class UserService {
 
-    private final UserMapper userMapper;
+    public UserRequest process(UserRequest request) {
+        UserLog userLog = new UserLog();
+        BeanUtils.copyProperties(request, userLog);
+        log.info(".... log ==> {}", JSONObject.toJSONString(userLog));
 
-        public List<User> getAllUser() {
-            return userMapper.getAllUsers();
-        }
-
-        public User findById(Long id) {
-            return userMapper.findById(id);
+        return request;
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public void insertUser(User user) {
-        userMapper.insertUser(user);
+    public static void main(String[] args) {
+        UserService userService = new UserService();
+        UserRequest userRequest = new UserRequest();
+        userRequest.setUsername("aaa");
+        userRequest.setPassword("bbb");
+        userRequest.setMail("ccc");
+        userRequest.setPhone("ddd");
+
+
+        UserRequest process = userService.process(userRequest);
+        System.out.println(process.equals(userRequest));
+        System.out.println(process == userRequest);
+        System.out.println(process);
     }
-
-
 
 }
