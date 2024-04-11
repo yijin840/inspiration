@@ -31,13 +31,16 @@ public class TestTimeStamp {
 
     }
 
-    public List<Map.Entry<Long, Long>> getResult(String start, String end) {
+    public List<Map.Entry<Long, Long>> getResult(String start, String end, int count) {
         Long sl = Long.valueOf(start);
         Long el = Long.valueOf(end);
 
         List<List<Map.Entry<Long, Long>>> res = new ArrayList<>();
         List<Map.Entry<Long, Long>> rr = new ArrayList<>();
-        int count = 5;
+        if (count == 1) {
+            rr.add(new AbstractMap.SimpleEntry<>(sl, el));
+            return rr;
+        }
         while (res.size() <= count) {
             List<Map.Entry<Long, Long>> list = new ArrayList<>();
             if (res.isEmpty()) {
