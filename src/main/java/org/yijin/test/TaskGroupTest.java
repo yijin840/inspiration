@@ -43,7 +43,7 @@ public class TaskGroupTest {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        RequestGroupTask requestTask = new RequestGroupTask(list2, 3, "group task");
+        RequestGroupTask requestTask = new RequestGroupTask(list2, 4, "group task");
         requestTask.execute(executorService);
         List<String> requestResult = requestTask.getResult();
         stopWatch.stop();

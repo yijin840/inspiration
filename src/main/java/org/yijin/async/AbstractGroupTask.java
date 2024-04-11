@@ -45,7 +45,7 @@ public abstract class AbstractGroupTask<T, R> implements GroupTask<T, R> {
 
     @Override
     public List<List<T>> groupByCount(List<T> pendingGroupList, int count) {
-        if (pendingGroupList == null || pendingGroupList.isEmpty()) {
+        if (Objects.isNull(pendingGroupList) || pendingGroupList.isEmpty()) {
             throw new RuntimeException("pending group list is empty");
         }
         List<List<T>> finishedGroupList = new ArrayList<>();
