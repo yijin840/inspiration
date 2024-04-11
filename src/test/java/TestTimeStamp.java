@@ -24,7 +24,7 @@ public class TestTimeStamp {
          */
         String start = "1712800000";
         String end = "1712829088";
-        List<Map.Entry<Long, Long>> result = getResult(start, end);
+        List<Map.Entry<Long, Long>> result = getResult(start, end, 5);
         for (Map.Entry<Long, Long> entry : result) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
