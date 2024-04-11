@@ -23,18 +23,23 @@ public abstract class AbstractGroupTask<T, R> implements GroupTask<T, R> {
     private final List<FutureTask<List<R>>> FUTURE_TASK_LIST;
     private List<R> result;
     private volatile Boolean isRunning;
-
     private static final int DEFAULT_COUNT = 5;
+    private final String taskName;
 
-    public AbstractGroupTask(List<T> groupList, int count) {
+    public AbstractGroupTask(List<T> groupList, int count, String taskName) {
         this.groupList = groupList;
         this.finishedGroupList = groupByCount(groupList, count);
         this.FUTURE_TASK_LIST = new ArrayList<>();
         this.isRunning = false;
+        this.taskName = taskName;
+    }
+
+    public AbstractGroupTask(List<T> groupList, String taskName) {
+        this(groupList, DEFAULT_COUNT, taskName);
     }
 
     public AbstractGroupTask(List<T> groupList) {
-        this(groupList, DEFAULT_COUNT);
+        this(groupList, DEFAULT_COUNT, null);
     }
 
 
@@ -108,9 +113,17 @@ public abstract class AbstractGroupTask<T, R> implements GroupTask<T, R> {
 
     @Override
     public void execute(ExecutorService executor) {
+        if (isRunning) {
+            throw new RuntimeException("task is running.");
+        }
         log.info("executor is started task {}", this.taskName());
         //分配组任务
         assignGroupTasks(this.finishedGroupList);
         this.getAllTask().forEach(executor::execute);
+    }
+
+    @Override
+    public String taskName() {
+        return this.taskName;
     }
 }

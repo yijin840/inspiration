@@ -12,17 +12,12 @@ import java.util.stream.Collectors;
  **/
 public class StringGroupTask extends AbstractGroupTask<String, String> {
     public StringGroupTask(List<String> groupList, int count) {
-        super(groupList, count);
+        super(groupList, count, "string task");
     }
 
     @Override
     protected List<String> groupTask(List<String> signleGroupList) {
         return signleGroupList.stream().map(s -> s + "=====").collect(Collectors.toList());
-    }
-
-    @Override
-    public String taskName() {
-        return "String Task";
     }
 
 }
