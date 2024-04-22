@@ -10,6 +10,9 @@ import org.insp.sdk.client.enums.HttpMethodEnum;
 public abstract class AbstractProcessClient implements ProcessClient {
 
     protected boolean isInit = false;
+    protected boolean needAuth = false;
+
+    protected ProcessConfig config;
 
     protected ProcessRequest request;
 
@@ -23,9 +26,9 @@ public abstract class AbstractProcessClient implements ProcessClient {
 
     @Override
     public ProcessResponse get(ProcessRequest processRequest) {
-        auth(processRequest);
-
-
+        if(needAuth) {
+            auth(processRequest);
+        }
 
         return null;
     }

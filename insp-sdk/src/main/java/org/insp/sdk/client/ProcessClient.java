@@ -7,13 +7,11 @@ package org.insp.sdk.client;
  **/
 public interface ProcessClient {
 
-    ProcessClient getClient();
-
+    String getClientName();
+    void auth(ProcessRequest processRequest);
     ProcessResponse get(ProcessRequest processRequest);
     ProcessResponse post(ProcessRequest processRequest);
     ProcessResponse put(ProcessRequest processRequest);
     ProcessResponse delete(ProcessRequest processRequest);
-
-    void auth(ProcessRequest processRequest);
 
 }

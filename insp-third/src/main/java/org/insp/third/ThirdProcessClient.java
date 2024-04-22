@@ -11,10 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ThirdProcessClient extends AbstractProcessClient {
 
+    private static final String CLIENT_NAME = "third-process-client";
 
     @Override
-    public ProcessClient getClient() {
-        return this;
+    public String getClientName() {
+        return CLIENT_NAME;
     }
 
     @Override
